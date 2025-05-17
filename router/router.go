@@ -1,7 +1,7 @@
 package router
 
 import (
-	"ajnash-ibn-ummer/wewithyou/pkg/users"
+	"ajnash-ibn-ummer/wewithyou/pkg/routes"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,6 +9,7 @@ import (
 func RouterRegister(app *gin.Engine) {
 
 	v1 := app.Group("/v1")
-	users.UserRouter(v1.Group("/user"))
+	routes.UserRouter(v1.Group("/user"))
+	routes.AuthRouter(v1.Group("/auth"))
 
 }

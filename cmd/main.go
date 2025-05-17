@@ -1,3 +1,20 @@
+//   Product Api:
+//    version: 0.1
+//    title: Consultation Booking
+//   Schemes: http, https
+//   Host:
+//   BasePath: /api/v1
+//      Consumes:
+//      - application/json
+//   Produces:
+//   - application/json
+//   SecurityDefinitions:
+//    Bearer:
+//     type: apiKey
+//     name: Authorization
+//     in: header
+//   swagger:meta
+
 package main
 
 import (
@@ -21,7 +38,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Env not found")
 	}
-
 	// db configuration
 	config.InitConfig()
 	db := config.GetDB()
@@ -30,6 +46,7 @@ func main() {
 	fmt.Print((db))
 	// routers
 	app := gin.Default()
+	app.Use(gin.Recovery())
 	router.RouterRegister(app)
 	app.GET("/ping", ping)
 
@@ -38,7 +55,7 @@ func main() {
 }
 
 func ping(c *gin.Context) {
-	c.JSON(http.StatusOK, common.Response{
+	c.JSON(http.StatusOK, common.Resp{
 		Message: "Ping",
 		Status:  200,
 		Data:    nil,

@@ -2,16 +2,15 @@ package migration
 
 import (
 	"ajnash-ibn-ummer/wewithyou/config"
-	"ajnash-ibn-ummer/wewithyou/pkg/auth"
-	"ajnash-ibn-ummer/wewithyou/pkg/users"
+	"ajnash-ibn-ummer/wewithyou/pkg/models"
 )
 
 func MigrateEntities() {
 	db := config.GetDB()
 
 	db.AutoMigrate(
-		&users.User{},
-		&auth.Role{},
-		&auth.RolePermission{})
+		&models.User{},
+		&models.Role{},
+		&models.RolePermission{})
 
 }
