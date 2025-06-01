@@ -15,7 +15,7 @@ func ParseJsonBody(c *gin.Context, binder interface{}) any {
 			Status:  http.StatusBadRequest,
 		})
 	}
-	return nil
+	return binder
 }
 
 func PasswordHashing() {

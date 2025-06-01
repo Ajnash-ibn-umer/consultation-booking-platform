@@ -22,14 +22,14 @@ type UserRepository interface {
 
 type User struct {
 	gorm.Model
-	Name       string `gorm:"index;not null"`
-	Email      string `gorm:"uniqueIndex;not null"`
-	UserName   string `gorm:"uniqueIndex;not null";json:"user_name"`
-	Password   string `not null`
-	AuthMethod int    `not null`
-	IsActive   bool   `not null`
-	// RoleID       int       `gorm:"null"`
-	// Role         auth.Role `gorm:"foreignKey:RoleID"`
+	Name         string `gorm:"index;not null"`
+	Email        string `gorm:"uniqueIndex;not null"`
+	UserName     string `gorm:"uniqueIndex;not null";json:"user_name"`
+	Password     string `not null`
+	AuthMethod   int    `not null`
+	IsActive     bool   `not null`
+	RoleID       *int   `gorm:"null"`
+	Role         Role   `gorm:"foreignKey:RoleID"`
 	UserType     int    `gorm:"index;not null"`
 	ProfileImage string `not null`
 	Age          int    `not null`

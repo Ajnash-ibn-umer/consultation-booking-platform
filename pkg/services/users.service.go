@@ -38,13 +38,13 @@ func CreateUser(user *dto.CreateUserDto, uid uint) (*common.Resp, error) {
 
 	fmt.Println("user", user)
 	newUser := models.User{
-		Name:       user.Name,
-		Email:      user.Email,
-		Password:   hashedPassword,
-		UserName:   user.UserName,
-		AuthMethod: 1,
-		IsActive:   false,
-		// RoleID:       1,
+		Name:         user.Name,
+		Email:        user.Email,
+		Password:     hashedPassword,
+		UserName:     user.UserName,
+		AuthMethod:   1,
+		IsActive:     false,
+		RoleID:       nil,
 		UserType:     1,
 		ProfileImage: "",
 		Age:          user.Age,

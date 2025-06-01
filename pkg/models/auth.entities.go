@@ -4,7 +4,8 @@ import "gorm.io/gorm"
 
 type Role struct {
 	gorm.Model
-	Name string `gorm:"not null"`
+	Name        string           `gorm:"not null"`
+	Permissions []RolePermission `gorm:"foreignKey:RoleID"`
 }
 
 type RolePermission struct {
