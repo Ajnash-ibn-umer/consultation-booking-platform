@@ -1,5 +1,17 @@
+# Build the image:
+#   docker build -t consultation-booking .
+#
+# Run the container:
+#   docker run -d -p 8080:8080 --name consultation-app \
+#   -e DB_HOST=your_db_host \
+#   -e DB_USER=your_db_user \
+#   -e DB_PASSWORD=your_db_password \
+#   -e DB_NAME=your_db_name \
+#   -e DB_PORT=5432 \
+#   consultation-booking
+
 # Build stage
-FROM golang:1.22-alpine AS builder
+FROM golang:1.23-alpine AS builder
 
 # Install build dependencies
 RUN apk add --no-cache gcc musl-dev
@@ -11,7 +23,7 @@ WORKDIR /app
 COPY go.mod go.sum ./
 
 # Download dependencies
-RUN go mod download
+RUN go mod tidy
 
 # Copy source code
 COPY . .
@@ -19,17 +31,9 @@ COPY . .
 # Build the application
 RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/main.go
 
-# Final stage
-FROM alpine:latest
-
-# Install CA certificates and timezone data
-RUN apk --no-cache add ca-certificates tzdata
-
 # Set working directory
 WORKDIR /app
 
-# Copy the binary from builder
-COPY --from=builder /app/main .
 
 # Copy the .env file
 COPY .env .
